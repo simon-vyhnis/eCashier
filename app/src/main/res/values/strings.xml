@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">eCashier</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">eCashier</string>
+    <string name="nav_header_subtitle">tool for every class cashier</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_current_collection">Current Collection</string>
+    <string name="current_remains">Remains collect:</string>
+    <string name="current_already">Already collected:</string>
+
+    <string name="menu_add_collection">Add Collection</string>
+    <string name="add_name">Withdraw name:</string>
+    <string name="add_group">Select group</string>
+    <string name="add_price">Price:</string>
+    <string name="add_next">Next ></string>
+    <string name="add_manage_groups"><u>Manage people</u></string>
+    <string name="add_back">&lt; Back</string>
+    <string name="add_finish">Finish</string>
+    <string name="add_name_hint">Photos money 2020</string>
+    <string name="add_price_hint">200$</string>
+    <string name="error_title">Ups an error!</string>
+    <string name="error_text">Unfortunately a database error occurred. Please try again and contact developers if it keeps showing.</string>
+
+
+    <string name="menu_history">History</string>
+
+    <string name="menu_people">People</string>
+    <string name="add_ok">OK</string>
+
+</resources>
