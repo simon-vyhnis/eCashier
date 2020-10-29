@@ -23,5 +23,8 @@ public interface PersonToGroupDao {
             "WHERE ptg.groupId = :groupId " +
             "ORDER BY p.name ")
     LiveData<List<PersonExtended>> getPeopleByCollection(int collectionId, int groupId);
+
+    @Query("SELECT COUNT(*) FROM PERSON_TO_GROUP_TABLE WHERE groupId = :groupId")
+    int getGroupSize(int groupId);
 }
 

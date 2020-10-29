@@ -35,4 +35,10 @@ public interface CollectionDao {
     @Query("SELECT * FROM COLLECTION_TABLE WHERE current='TRUE' LIMIT 1")
     Collection getCurrentCollectionClear();
 
+    @Query("SELECT id AS collectionId, price, name, groupId, " +
+            "(SELECT COUNT(*) FROM PERSON_TO_GROUP_TABLE AS ptg WHERE c.groupId = ptg.groupId) AS peopleCount, " +
+            "(SELECT COUNT(*) FROM COLLECTION_LOG_TABLE AS cl WHERE cl.collectionId = c.id) AS paymentsCount " +
+            "FROM COLLECTION_TABLE AS c WHERE c.current = 'TRUE' LIMIT 1")
+    LiveData<CollectionInfo> getCurrentCollectionInfo();
+
 }

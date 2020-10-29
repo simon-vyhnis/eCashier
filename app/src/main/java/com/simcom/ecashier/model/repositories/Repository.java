@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer;
 import com.simcom.ecashier.model.room.CashierDatabase;
 import com.simcom.ecashier.model.room.Collection;
 import com.simcom.ecashier.model.room.CollectionDao;
+import com.simcom.ecashier.model.room.CollectionInfo;
+import com.simcom.ecashier.model.room.CollectionLog;
 import com.simcom.ecashier.model.room.CollectionLogDao;
 import com.simcom.ecashier.model.room.Group;
 import com.simcom.ecashier.model.room.GroupDao;
@@ -75,7 +77,9 @@ public class Repository {
     public void removePersonFromGroup(final PersonToGroup personToGroup){
         Thread thread = new Thread(() -> personToGroupDao.delete(personToGroup));
         thread.start();
-
+    }
+    public int getGroupSize(int groupId){
+        return personToGroupDao.getGroupSize(groupId);
     }
 
     //Collection table
@@ -93,6 +97,15 @@ public class Repository {
 
     public LiveData<Collection> getCurrentCollection(){
         return collectionDao.getCurrentCollection();
+    }
+
+    public LiveData<CollectionInfo> getCurrentCollectionInfo(){
+        return collectionDao.getCurrentCollectionInfo();
+    }
+
+    //CollectionLog table
+    public void insertCollectionLog(CollectionLog collectionLog){
+        CashierDatabase.databaseWriteExecutor.execute(()->collectionLogDao.insert(collectionLog));
     }
 }
 
