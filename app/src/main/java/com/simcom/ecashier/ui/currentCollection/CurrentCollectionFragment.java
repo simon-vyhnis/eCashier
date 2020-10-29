@@ -1,5 +1,8 @@
 package com.simcom.ecashier.ui.currentCollection;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.simcom.ecashier.R;
 import com.simcom.ecashier.model.room.CollectionInfo;
 import com.simcom.ecashier.ui.addCollection.AddCollectionViewModel;
+import com.simcom.ecashier.ui.addCollection.ErrorDialog;
 
 public class CurrentCollectionFragment extends Fragment {
 
@@ -30,14 +34,19 @@ public class CurrentCollectionFragment extends Fragment {
         final TextView currentText = root.findViewById(R.id.price);
         final TextView leftText = root.findViewById(R.id.price);
         final TextView totalText = root.findViewById(R.id.price);
-        viewModel.getCurrentCollectionInfo().observe(this.getViewLifecycleOwner(), new Observer<CollectionInfo>() {
-            @Override
-            public void onChanged(CollectionInfo collectionInfo) {
-                if(collectionInfo!=null) {
-                    priceText.setText(String.valueOf(collectionInfo.getPrice()));
-                    currentText.setText(String.valueOf(collectionInfo.getCurrentlyCollected()));
-                    leftText.setText(String.valueOf(collectionInfo.getMoneyLeft()));
-                    totalText.setText(String.valueOf(collectionInfo.getTotalPrice()));
+        viewModel.getCurrentCollectionInfo().observe(this.getViewLifecycleOwner(), collectionInfo -> {
+            if(collectionInfo!=null) {
+                getActivity().getActionBar().setTitle(collectionInfo.getName());
+                priceText.setText(String.valueOf(collectionInfo.getPrice()));
+                currentText.setText(String.valueOf(collectionInfo.getCurrentlyCollected()));
+                leftText.setText(String.valueOf(collectionInfo.getMoneyLeft()));
+                totalText.setText(String.valueOf(collectionInfo.getTotalPrice()));
+            }else{
+                ErrorDialog errorDialog = new ErrorDialog(getContext());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    errorDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    errorDialog.create();
+                    errorDialog.show();
                 }
             }
         });
