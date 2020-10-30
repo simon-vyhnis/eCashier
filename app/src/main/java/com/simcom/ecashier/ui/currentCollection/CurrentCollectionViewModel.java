@@ -12,6 +12,8 @@ import com.simcom.ecashier.model.repositories.Repository;
 import com.simcom.ecashier.model.room.Collection;
 import com.simcom.ecashier.model.room.CollectionInfo;
 
+import java.util.List;
+
 public class CurrentCollectionViewModel extends AndroidViewModel {
 
     private Collection currentCollection;

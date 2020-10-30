@@ -29,5 +29,9 @@
 
     <string name="menu_people">People</string>
     <string name="add_ok">OK</string>
+    <string name="current_total">Total:</string>
+    <string name="current_current">Current balance:</string>
+    <string name="current_price">Price:</string>
+    <string name="current_left">Money left:</string>
 
 </resources>

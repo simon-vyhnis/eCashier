@@ -1,6 +1,7 @@
 package com.simcom.ecashier.ui.addCollection;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -52,7 +53,8 @@ public class AddCollectionViewModel extends AndroidViewModel {
         return repository.getCurrentCollection();
     }
     public void finish(){
-        Collection collection = new Collection(name,groupId,price,System.currentTimeMillis(), true);
+        Log.i("ADD COLLECTION" ,"Name is: "+name);
+        Collection collection = new Collection(name, groupId, price, System.currentTimeMillis(), true);
         repository.addCollection(collection);
     }
 }

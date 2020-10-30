@@ -87,9 +87,8 @@ public class Repository {
         CashierDatabase.databaseWriteExecutor.execute(()->{
             Collection oldCollection = collectionDao.getCurrentCollectionClear();
             if(oldCollection!=null){
-                Collection newCollection = new Collection(oldCollection.getName(), oldCollection.getGroupId(),oldCollection.getPrice(),oldCollection.getTime(),false);
-                newCollection.setId(oldCollection.getId());
-                collectionDao.update(newCollection);
+                oldCollection.setCurrent(false);
+                collectionDao.update(oldCollection);
             }
             collectionDao.insert(collection);
         });

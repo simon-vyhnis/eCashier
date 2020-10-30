@@ -19,9 +19,13 @@ public class Collection {
         this.price = price;
         this.time = time;
         this.current = current;
+        this.name = name;
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public void setCurrent(boolean current){
+        this.current = current;
     }
 
     public int getId() {

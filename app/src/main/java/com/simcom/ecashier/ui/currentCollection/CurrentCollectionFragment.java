@@ -31,16 +31,16 @@ public class CurrentCollectionFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_current_collection, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         final TextView priceText = root.findViewById(R.id.price);
-        final TextView currentText = root.findViewById(R.id.price);
-        final TextView leftText = root.findViewById(R.id.price);
-        final TextView totalText = root.findViewById(R.id.price);
+        final TextView currentText = root.findViewById(R.id.current);
+        final TextView leftText = root.findViewById(R.id.left);
+        final TextView totalText = root.findViewById(R.id.total);
         viewModel.getCurrentCollectionInfo().observe(this.getViewLifecycleOwner(), collectionInfo -> {
             if(collectionInfo!=null) {
-                getActivity().getActionBar().setTitle(collectionInfo.getName());
-                priceText.setText(String.valueOf(collectionInfo.getPrice()));
-                currentText.setText(String.valueOf(collectionInfo.getCurrentlyCollected()));
-                leftText.setText(String.valueOf(collectionInfo.getMoneyLeft()));
-                totalText.setText(String.valueOf(collectionInfo.getTotalPrice()));
+                //getActivity().getActionBar().setTitle(collectionInfo.getName());
+                priceText.setText(getString(R.string.current_price)+collectionInfo.getPrice());
+                currentText.setText(getString(R.string.current_current)+collectionInfo.getCurrentlyCollected());
+                leftText.setText(getString(R.string.current_left)+collectionInfo.getMoneyLeft());
+                totalText.setText(getString(R.string.current_total)+collectionInfo.getTotalPrice());
             }else{
                 ErrorDialog errorDialog = new ErrorDialog(getContext());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
