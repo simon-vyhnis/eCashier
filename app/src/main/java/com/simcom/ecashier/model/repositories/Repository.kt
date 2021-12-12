@@ -1,110 +1,137 @@
-package com.simcom.ecashier.model.repositories;
+package com.simcom.ecashier.model.repositories
 
-import android.app.Application;
+import android.app.Application
+import com.simcom.ecashier.ui.people.PeopleViewModel
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import com.simcom.ecashier.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.lifecycle.ViewModel
+import com.simcom.ecashier.ui.history.HistoryViewModel
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.AndroidViewModel
+import com.simcom.ecashier.ui.addCollection.AddCollectionViewModel
+import android.widget.EditText
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import com.simcom.ecashier.ui.currentCollection.CurrentCollectionViewModel
+import com.simcom.ecashier.ui.addCollection.ErrorDialog
+import android.os.Build
+import android.graphics.drawable.ColorDrawable
+import androidx.room.PrimaryKey
+import androidx.room.Dao
+import androidx.room.Update
+import androidx.room.Delete
+import androidx.room.Embedded
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import kotlin.jvm.Synchronized
+import androidx.room.Room
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import androidx.navigation.ui.NavigationUI
+import com.simcom.ecashier.model.room.*
+import com.simcom.ecashier.model.room.Collection
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-
-import com.simcom.ecashier.model.room.CashierDatabase;
-import com.simcom.ecashier.model.room.Collection;
-import com.simcom.ecashier.model.room.CollectionDao;
-import com.simcom.ecashier.model.room.CollectionInfo;
-import com.simcom.ecashier.model.room.CollectionLog;
-import com.simcom.ecashier.model.room.CollectionLogDao;
-import com.simcom.ecashier.model.room.Group;
-import com.simcom.ecashier.model.room.GroupDao;
-import com.simcom.ecashier.model.room.Person;
-import com.simcom.ecashier.model.room.PersonDao;
-import com.simcom.ecashier.model.room.PersonToGroup;
-import com.simcom.ecashier.model.room.PersonToGroupDao;
-
-import java.util.List;
-
-
-public class Repository {
-    private PersonDao personDao;
-    private GroupDao groupDao;
-    private PersonToGroupDao personToGroupDao;
-    private CollectionDao collectionDao;
-    private CollectionLogDao collectionLogDao;
-    private Application application;
-
-    public Repository(Application application){
-        CashierDatabase database = CashierDatabase.getInstance(application);
-        personDao = database.personDao();
-        groupDao = database.groupDao();
-        personToGroupDao = database.personToGroupDao();
-        collectionDao = database.collectionDao();
-        collectionLogDao = database.collectionLogDao();
-        this.application = application;
-    }
+class Repository(application: Application) {
+    private val personDao: PersonDao?
+    private val groupDao: GroupDao?
+    private val personToGroupDao: PersonToGroupDao?
+    private val collectionDao: CollectionDao?
+    private val collectionLogDao: CollectionLogDao?
+    private val application: Application
 
     //Person table
-    public LiveData<List<Person>> getAllPeople(){
-        return personDao.getAllPeople();
+    val allPeople: LiveData<List<Person>>
+        get() = personDao.getAllPeople()
+
+    fun getPeopleFromGroup(groupId: Int): LiveData<List<Person?>?>? {
+        return personDao!!.getPeopleFromGroup(groupId)
     }
-    public LiveData<List<Person>> getPeopleFromGroup(int groupId){
-        return personDao.getPeopleFromGroup(groupId);
-    }
-    public void createPerson(Person person){
-        personDao.insertPerson(person);
+
+    fun createPerson(person: Person?) {
+        personDao!!.insertPerson(person)
     }
 
     //Group table
-    public void createGroup(Group group){
-        groupDao.insert(group);
-    }
-    public void updateGroup(Group group){
-        groupDao.update(group);
-    }
-    public void deleteGroup(Group group){
-        groupDao.delete(group);
-    }
-    public LiveData<List<Group>> getAllGroups(){
-        return groupDao.getAllGroups();
+    fun createGroup(group: Group?) {
+        groupDao!!.insert(group)
     }
 
+    fun updateGroup(group: Group?) {
+        groupDao!!.update(group)
+    }
+
+    fun deleteGroup(group: Group?) {
+        groupDao!!.delete(group)
+    }
+
+    val allGroups: LiveData<List<Group?>?>?
+        get() = groupDao.getAllGroups()
+
     //PersonToGroup table
-    public void addPersonToGroup(Person person, Group group){
-        personToGroupDao.insert(new PersonToGroup(person.getId(),group.getId()));
+    fun addPersonToGroup(person: Person, group: Group) {
+        personToGroupDao!!.insert(PersonToGroup(person.id, group.id))
     }
-    public void addPersonToGroup(PersonToGroup personToGroup){
-        personToGroupDao.insert(personToGroup);
+
+    fun addPersonToGroup(personToGroup: PersonToGroup?) {
+        personToGroupDao!!.insert(personToGroup)
     }
-    public void removePersonFromGroup(Person person, Group group){
-        personToGroupDao.delete(new PersonToGroup(person.getId(),group.getId()));
+
+    fun removePersonFromGroup(person: Person, group: Group) {
+        personToGroupDao!!.delete(PersonToGroup(person.id, group.id))
     }
-    public void removePersonFromGroup(final PersonToGroup personToGroup){
-        Thread thread = new Thread(() -> personToGroupDao.delete(personToGroup));
-        thread.start();
+
+    fun removePersonFromGroup(personToGroup: PersonToGroup?) {
+        val thread = Thread { personToGroupDao!!.delete(personToGroup) }
+        thread.start()
     }
-    public int getGroupSize(int groupId){
-        return personToGroupDao.getGroupSize(groupId);
+
+    fun getGroupSize(groupId: Int): Int {
+        return personToGroupDao!!.getGroupSize(groupId)
     }
 
     //Collection table
-    public void addCollection(Collection collection){
-        CashierDatabase.databaseWriteExecutor.execute(()->{
-            Collection oldCollection = collectionDao.getCurrentCollectionClear();
-            if(oldCollection!=null){
-                oldCollection.setCurrent(false);
-                collectionDao.update(oldCollection);
+    fun addCollection(collection: Collection?) {
+        CashierDatabase.Companion.databaseWriteExecutor.execute(Runnable {
+            val oldCollection = collectionDao.getCurrentCollectionClear()
+            if (oldCollection != null) {
+                oldCollection.isCurrent = false
+                collectionDao!!.update(oldCollection)
             }
-            collectionDao.insert(collection);
-        });
+            collectionDao!!.insert(collection)
+        })
     }
 
-    public LiveData<Collection> getCurrentCollection(){
-        return collectionDao.getCurrentCollection();
-    }
-
-    public LiveData<CollectionInfo> getCurrentCollectionInfo(){
-        return collectionDao.getCurrentCollectionInfo();
-    }
+    val currentCollection: LiveData<Collection>
+        get() = collectionDao.getCurrentCollection()
+    val currentCollectionInfo: LiveData<CollectionInfo?>?
+        get() = collectionDao.getCurrentCollectionInfo()
 
     //CollectionLog table
-    public void insertCollectionLog(CollectionLog collectionLog){
-        CashierDatabase.databaseWriteExecutor.execute(()->collectionLogDao.insert(collectionLog));
+    fun insertCollectionLog(collectionLog: CollectionLog?) {
+        CashierDatabase.Companion.databaseWriteExecutor.execute(Runnable {
+            collectionLogDao!!.insert(
+                collectionLog
+            )
+        })
+    }
+
+    init {
+        val database: CashierDatabase = CashierDatabase.Companion.getInstance(application)
+        personDao = database.personDao()
+        groupDao = database.groupDao()
+        personToGroupDao = database.personToGroupDao()
+        collectionDao = database.collectionDao()
+        collectionLogDao = database.collectionLogDao()
+        this.application = application
     }
 }
-

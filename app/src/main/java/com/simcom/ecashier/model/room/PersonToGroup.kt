@@ -1,34 +1,48 @@
-package com.simcom.ecashier.model.room;
+package com.simcom.ecashier.model.room
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import com.simcom.ecashier.ui.people.PeopleViewModel
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import com.simcom.ecashier.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.lifecycle.ViewModel
+import com.simcom.ecashier.ui.history.HistoryViewModel
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.AndroidViewModel
+import com.simcom.ecashier.ui.addCollection.AddCollectionViewModel
+import android.widget.EditText
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import com.simcom.ecashier.ui.currentCollection.CurrentCollectionViewModel
+import com.simcom.ecashier.ui.addCollection.ErrorDialog
+import android.os.Build
+import android.graphics.drawable.ColorDrawable
+import com.simcom.ecashier.model.room.PersonExtended
+import com.simcom.ecashier.model.room.PersonToGroup
+import com.simcom.ecashier.model.room.CollectionLog
+import com.simcom.ecashier.model.room.PersonDao
+import com.simcom.ecashier.model.room.GroupDao
+import com.simcom.ecashier.model.room.PersonToGroupDao
+import com.simcom.ecashier.model.room.CollectionDao
+import com.simcom.ecashier.model.room.CollectionLogDao
+import com.simcom.ecashier.model.room.CashierDatabase
+import kotlin.jvm.Synchronized
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import androidx.navigation.ui.NavigationUI
+import androidx.room.*
 
 @Entity(tableName = "person_to_group_table")
-public class PersonToGroup {
+class PersonToGroup(val personId: Int, val groupId: Int) {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    var id = 0
 
-    private int personId;
-
-    private int groupId;
-
-    public PersonToGroup(int personId, int groupId) {
-        this.personId = personId;
-        this.groupId = groupId;
-    }
-
-    public int getPersonId() {
-        return personId;
-    }
-    public int getGroupId() {
-        return groupId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

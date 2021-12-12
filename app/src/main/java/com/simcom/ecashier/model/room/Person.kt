@@ -1,26 +1,11 @@
-package com.simcom.ecashier.model.room;
+package com.simcom.ecashier.model.room
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "person_table")
-public class Person {
-
+class Person(val name: String) {
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String name;
+    var id = 0
 
-    public Person(String name) {
-        this.name = name;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
 }

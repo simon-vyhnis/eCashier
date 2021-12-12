@@ -1,86 +1,64 @@
-package com.simcom.ecashier.model.room;
+package com.simcom.ecashier.model.room
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
+import com.simcom.ecashier.ui.people.PeopleViewModel
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import com.simcom.ecashier.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.lifecycle.ViewModel
+import com.simcom.ecashier.ui.history.HistoryViewModel
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.AndroidViewModel
+import com.simcom.ecashier.ui.addCollection.AddCollectionViewModel
+import android.widget.EditText
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import com.simcom.ecashier.ui.currentCollection.CurrentCollectionViewModel
+import com.simcom.ecashier.ui.addCollection.ErrorDialog
+import android.os.Build
+import android.graphics.drawable.ColorDrawable
+import com.simcom.ecashier.model.room.PersonExtended
+import androidx.room.PrimaryKey
+import androidx.room.Dao
+import androidx.room.Update
+import androidx.room.Delete
+import androidx.room.Embedded
+import androidx.room.Database
+import com.simcom.ecashier.model.room.PersonToGroup
+import com.simcom.ecashier.model.room.CollectionLog
+import androidx.room.RoomDatabase
+import com.simcom.ecashier.model.room.PersonDao
+import com.simcom.ecashier.model.room.GroupDao
+import com.simcom.ecashier.model.room.PersonToGroupDao
+import com.simcom.ecashier.model.room.CollectionDao
+import com.simcom.ecashier.model.room.CollectionLogDao
+import com.simcom.ecashier.model.room.CashierDatabase
+import kotlin.jvm.Synchronized
+import androidx.room.Room
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import androidx.navigation.ui.NavigationUI
 
-public class CollectionInfo {
-
-
-
-    public int price;
-    public int peopleCount;
-    public int paymentsCount;
-
-    public int collectionId;
-    public int groupId;
-    public String name;
-
-    public CollectionInfo(int price, int peopleCount, int paymentsCount, int collectionId, int groupId, String name) {
-        this.price = price;
-        this.peopleCount = peopleCount;
-        this.paymentsCount = paymentsCount;
-        this.collectionId = collectionId;
-        this.groupId = groupId;
-        this.name = name;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public void setPeopleCount(int peopleCount) {
-        this.peopleCount = peopleCount;
-    }
-
-    public void setPaymentsCount(int paymentsCount) {
-        this.paymentsCount = paymentsCount;
-    }
-
-    public void setCollectionId(int collectionId) {
-        this.collectionId = collectionId;
-    }
-
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getTotalPrice() {
-        return price*peopleCount;
-    }
-
-    public int getCurrentlyCollected() {
-        return price*(peopleCount-paymentsCount);
-    }
-
-    public int getMoneyLeft() {
-        return price*paymentsCount;
-    }
-
-    public int getPeopleCount() {
-        return peopleCount;
-    }
-
-    public int getPaymentsCount() {
-        return paymentsCount;
-    }
-
-    public int getCollectionId() {
-        return collectionId;
-    }
-
-    public int getGroupId() {
-        return groupId;
-    }
-
-    public String getName() {
-        return name;
-    }
+class CollectionInfo(
+    var price: Int,
+    var peopleCount: Int,
+    var paymentsCount: Int,
+    var collectionId: Int,
+    var groupId: Int,
+    var name: String
+) {
+    val totalPrice: Int
+        get() = price * peopleCount
+    val currentlyCollected: Int
+        get() = price * (peopleCount - paymentsCount)
+    val moneyLeft: Int
+        get() = price * paymentsCount
 }
