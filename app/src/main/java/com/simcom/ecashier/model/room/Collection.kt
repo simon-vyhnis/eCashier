@@ -42,7 +42,7 @@ import androidx.room.*
 
 @Entity(tableName = "collection_table")
 class Collection(
-    val name: String?,
+    val name: String,
     val groupId: Int,
     val price: Int,
     val time: Long,

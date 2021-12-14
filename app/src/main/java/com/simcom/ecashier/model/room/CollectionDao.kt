@@ -43,25 +43,25 @@ import androidx.room.*
 @Dao
 interface CollectionDao {
     @Insert
-    suspend fun insert(collection: Collection)
+    public suspend fun insert(collection: Collection)
 
     @Update
-    suspend fun update(collection: Collection)
+    public suspend fun update(collection: Collection)
 
     @Delete
-    suspend fun delete(collection: Collection)
+    public suspend fun delete(collection: Collection)
 
     @Query("SELECT * FROM COLLECTION_TABLE where id = :id")
-    fun getCollection(id: Int): LiveData<Collection>
+    public fun getCollection(id: Int): LiveData<Collection>
 
     @Query("SELECT * FROM COLLECTION_TABLE ORDER BY time DESC")
-    fun getAllCollections(): LiveData<List<Collection>>
+    public fun getAllCollections(): LiveData<List<Collection>>
 
     @Query("SELECT * FROM COLLECTION_TABLE WHERE current = 1 LIMIT 1")
-    fun getCurrentCollection(): LiveData<Collection>
+    public fun getCurrentCollection(): LiveData<Collection>
 
     @Query("SELECT * FROM COLLECTION_TABLE WHERE current = 1 LIMIT 1")
-    fun getCurrentCollectionClear(): Collection
+    public fun getCurrentCollectionClear(): Collection
 
     @Query(
         "SELECT id AS collectionId, price, name, groupId, " +
@@ -69,5 +69,5 @@ interface CollectionDao {
                 "(SELECT COUNT(*) FROM COLLECTION_LOG_TABLE AS cl WHERE cl.collectionId = c.id) AS paymentsCount " +
                 "FROM COLLECTION_TABLE AS c WHERE c.current = 1 LIMIT 1"
     )
-    fun getCurrentCollectionInfo(): LiveData<CollectionInfo>
+    public fun getCurrentCollectionInfo(): LiveData<CollectionInfo>
 }

@@ -57,15 +57,7 @@
             android:id="@+id/action_priceFragment_to_selectGroupFragment"
             app:destination="@id/selectGroupFragment" />
         <action
-            android:id="@+id/action_priceFragment_to_loadingFragment"
-            app:destination="@id/loadingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/loadingFragment"
-        android:name="com.simcom.ecashier.ui.addCollection.LoadingFragment"
-        android:label="Creating new collection..." >
-        <action
-            android:id="@+id/action_loadingFragment_to_nav_current"
+            android:id="@+id/action_priceFragment_to_nav_current"
             app:destination="@id/nav_current" />
     </fragment>
 </navigation>

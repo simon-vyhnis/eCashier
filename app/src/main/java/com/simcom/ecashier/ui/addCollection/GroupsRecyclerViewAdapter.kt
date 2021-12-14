@@ -56,13 +56,9 @@ class GroupsRecyclerViewAdapter : RecyclerView.Adapter<GroupsRecyclerViewAdapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = groups[position].name
-        holder.card.setOnClickListener { view: View? ->
+        holder.card.setOnClickListener {
             holder.card.setCardBackgroundColor(
-                Color.rgb(
-                    236,
-                    244,
-                    220
-                )
+                Color.rgb(236, 244, 220)
             )
         }
     }
@@ -72,12 +68,8 @@ class GroupsRecyclerViewAdapter : RecyclerView.Adapter<GroupsRecyclerViewAdapter
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var name: TextView
-        var card: CardView
+        var name: TextView = itemView.findViewById(R.id.name)
+        var card: CardView = itemView.findViewById(R.id.card)
 
-        init {
-            name = itemView.findViewById(R.id.name)
-            card = itemView.findViewById(R.id.card)
-        }
     }
 }

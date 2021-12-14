@@ -6,18 +6,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
 import com.simcom.ecashier.R
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
-import androidx.lifecycle.ViewModel
 import com.simcom.ecashier.ui.history.HistoryViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import androidx.lifecycle.AndroidViewModel
 import com.simcom.ecashier.ui.addCollection.AddCollectionViewModel
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.simcom.ecashier.ui.currentCollection.CurrentCollectionViewModel
@@ -46,26 +42,33 @@ import androidx.room.Room
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.*
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.ui.NavigationUI
 import com.simcom.ecashier.model.repositories.Repository
 import com.simcom.ecashier.model.room.Collection
+import kotlinx.coroutines.launch
 
 class AddCollectionViewModel(application: Application) : AndroidViewModel(application) {
     var name: String? = null
+    var groupId: Int? = null
+    var price: Int? = null
 
-    //Only for testing!
-    var groupId = 1351
-    var price = 0
+    private var db:CashierDatabase = Room.databaseBuilder(
+        application,
+        CashierDatabase::class.java, "cashier_database"
+    ).build()
+
     private val repository: Repository = Repository(application)
     fun getCurrentCollection(): LiveData<Collection> {
         return repository.currentCollection
     }
 
-    fun finish() {
-        Log.i("ADD COLLECTION", "Name is: $name")
-        val collection = Collection(name, groupId, price, System.currentTimeMillis(), true)
-        repository.addCollection(collection)
+    fun createCollection() = viewModelScope.launch{
+        if(name != null && groupId != null && price != null){
+            val collection = Collection(name!!, groupId!!, price!!, System.currentTimeMillis(), true)
+            db.collectionDao().insert(collection)
+        }
     }
 
 }

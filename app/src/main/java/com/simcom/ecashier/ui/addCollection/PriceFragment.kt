@@ -16,31 +16,30 @@ import com.simcom.ecashier.ui.history.HistoryViewModel
 import java.lang.NumberFormatException
 
 class PriceFragment : Fragment() {
-    private val viewModel : AddCollectionViewModel by viewModels()
+    private lateinit var viewModel : AddCollectionViewModel
     private lateinit var editText: EditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val root = inflater.inflate(R.layout.fragment_price, container, false)
+        viewModel = ViewModelProvider(requireActivity()).get(AddCollectionViewModel::class.java)
         editText = root.findViewById(R.id.editText)
-        if (viewModel.getPrice() != 0) {
-            editText.setText(viewModel.getPrice().toString())
-        }
-        root.findViewById<View>(R.id.finish_button).setOnClickListener { view: View? ->
+        root.findViewById<View>(R.id.finish_button).setOnClickListener {
             if (editText.text.toString().isEmpty()) {
                 editText.error = "Can't be empty"
             } else {
                 try {
-                    viewModel.setPrice(editText.getText().toString().toInt())
+                    viewModel.price = editText.text.toString().toInt()
+                    viewModel.createCollection()
+                    findNavController().navigate(R.id.action_priceFragment_to_nav_current)
                 } catch (nfe: NumberFormatException) {
                     Toast.makeText(context, "Error NFE!", Toast.LENGTH_SHORT).show()
                     nfe.printStackTrace()
                 }
-                findNavController().navigate(R.id.action_priceFragment_to_loadingFragment)
             }
         }
-        root.findViewById<View>(R.id.back_button).setOnClickListener { view: View? ->
-            if (!editText.getText().toString().isEmpty()) {
-                viewModel.setPrice(editText.getText().toString().toInt())
+        root.findViewById<View>(R.id.back_button).setOnClickListener {
+            if (editText.text.toString().isNotEmpty()) {
+                viewModel.price = editText.text.toString().toInt()
             }
             findNavController().navigate(R.id.action_priceFragment_to_selectGroupFragment)
         }
