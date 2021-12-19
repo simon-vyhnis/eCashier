@@ -15,17 +15,14 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.AndroidViewModel
 import com.simcom.ecashier.ui.addCollection.AddCollectionViewModel
-import android.widget.EditText
-import android.widget.Toast
 import androidx.lifecycle.LiveData
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.simcom.ecashier.ui.currentCollection.CurrentCollectionViewModel
 import com.simcom.ecashier.ui.addCollection.ErrorDialog
 import android.os.Build
 import android.graphics.drawable.ColorDrawable
 import android.view.View
-import android.widget.ImageView
+import android.widget.*
 import com.simcom.ecashier.model.room.PersonExtended
 import androidx.room.PrimaryKey
 import androidx.room.Dao
@@ -56,17 +53,11 @@ class CollectionRecyclerViewAdapter :
     private var people: List<PersonExtended> = ArrayList()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var order: TextView
-        var name: TextView
-        var tick: ImageView
-        var card: CardView
+        val order: TextView = itemView.findViewById(R.id.order)
+        val name: TextView = itemView.findViewById(R.id.name)
+        val tick: CheckBox = itemView.findViewById(R.id.checkbox)
+        val card: CardView = itemView.findViewById(R.id.card)
 
-        init {
-            order = itemView.findViewById(R.id.order)
-            name = itemView.findViewById(R.id.name)
-            tick = itemView.findViewById(R.id.tick)
-            card = itemView.findViewById(R.id.card)
-        }
     }
 
     fun setPeople(people: List<PersonExtended>) {
@@ -84,7 +75,6 @@ class CollectionRecyclerViewAdapter :
         holder.name.text = currentPerson.person.name
         if (currentPerson.hasPaid()) {
             holder.card.setCardBackgroundColor(Color.rgb(236, 244, 220))
-            holder.tick.setImageResource(R.drawable.ic_baseline_check_24)
             holder.order.setText(currentPerson.rank)
             holder.order.visibility = View.VISIBLE
         }

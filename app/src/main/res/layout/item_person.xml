@@ -39,14 +39,13 @@
             app:layout_constraintStart_toEndOf="@+id/order"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/tick"
+        <CheckBox
+            android:id="@+id/checkbox"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_baseline_clear_24" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

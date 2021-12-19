@@ -7,7 +7,7 @@ import android.view.View
 import com.simcom.ecashier.R
 
 class ErrorDialog(context: Context) : Dialog(context) {
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_error)
         findViewById<View>(R.id.button).setOnClickListener { dismiss() }

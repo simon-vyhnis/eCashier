@@ -57,17 +57,17 @@ interface CollectionDao {
     @Query("SELECT * FROM COLLECTION_TABLE ORDER BY time DESC")
     public fun getAllCollections(): LiveData<List<Collection>>
 
-    @Query("SELECT * FROM COLLECTION_TABLE WHERE current = 1 LIMIT 1")
+    @Query("SELECT * FROM COLLECTION_TABLE WHERE isCurrent = 1 LIMIT 1")
     public fun getCurrentCollection(): LiveData<Collection>
 
-    @Query("SELECT * FROM COLLECTION_TABLE WHERE current = 1 LIMIT 1")
+    @Query("SELECT * FROM COLLECTION_TABLE WHERE isCurrent = 1 LIMIT 1")
     public fun getCurrentCollectionClear(): Collection
 
     @Query(
         "SELECT id AS collectionId, price, name, groupId, " +
                 "(SELECT COUNT(*) FROM PERSON_TO_GROUP_TABLE AS ptg WHERE c.groupId = ptg.groupId) AS peopleCount, " +
                 "(SELECT COUNT(*) FROM COLLECTION_LOG_TABLE AS cl WHERE cl.collectionId = c.id) AS paymentsCount " +
-                "FROM COLLECTION_TABLE AS c WHERE c.current = 1 LIMIT 1"
+                "FROM COLLECTION_TABLE AS c WHERE c.isCurrent = 1 LIMIT 1"
     )
     public fun getCurrentCollectionInfo(): LiveData<CollectionInfo>
 }

@@ -33,5 +33,6 @@
     <string name="current_current">Current balance:</string>
     <string name="current_price">Price:</string>
     <string name="current_left">Money left:</string>
+    <string name="no_collections">No collections yet</string>
 
 </resources>
