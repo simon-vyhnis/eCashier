@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simcom.ecashier.R
 
-class PeopleFragment : Fragment() {
+class GroupsFragment : Fragment() {
     private lateinit var viewModel : PeopleViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val root = inflater.inflate(R.layout.fragment_people, container, false)
+        val root = inflater.inflate(R.layout.fragment_groups, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(PeopleViewModel::class.java)
-        viewModel.getPeople()?.observe(viewLifecycleOwner) {
+        viewModel.getGroups().observe(viewLifecycleOwner) {
             val recyclerView = root.findViewById<RecyclerView>(R.id.groups)
-            recyclerView.adapter = ManagePeopleRecyclerViewAdapter(it, viewModel)
+            recyclerView.adapter = ManageGroupsRecyclerViewAdapter(it, viewModel)
             recyclerView.layoutManager = LinearLayoutManager(context)
             if(it.isEmpty()){
                 root.findViewById<TextView>(R.id.empty_message).visibility = View.VISIBLE

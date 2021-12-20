@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_history" />
 
     <fragment
-        android:id="@+id/nav_people"
+        android:id="@+id/people_detail"
         android:name="com.simcom.ecashier.ui.people.PeopleFragment"
         android:label="@string/menu_people"
         tools:layout="@layout/fragment_people"/>
@@ -59,5 +59,14 @@
         <action
             android:id="@+id/action_priceFragment_to_nav_current"
             app:destination="@id/nav_current" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_people"
+        android:name="com.simcom.ecashier.ui.people.GroupsFragment"
+        android:label="GroupsFragment"
+        tools:layout="@layout/fragment_groups">
+        <action
+            android:id="@+id/action_nav_people_to_people_detail"
+            app:destination="@id/people_detail" />
     </fragment>
 </navigation>

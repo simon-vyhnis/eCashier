@@ -34,5 +34,8 @@
     <string name="current_price">Price:</string>
     <string name="current_left">Money left:</string>
     <string name="no_collections">No collections yet</string>
+    <string name="groups_empty_message">No groups yet, click + to create one</string>
+    <string name="submit">Submit</string>
+    <string name="people_empty_message">No people yet, click + to add person</string>
 
 </resources>

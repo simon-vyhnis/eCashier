@@ -43,10 +43,10 @@ import androidx.room.*
 @Dao
 interface PersonToGroupDao {
     @Insert
-    suspend fun insert(item: PersonToGroup?)
+    suspend fun insert(item: PersonToGroup)
 
     @Delete
-    suspend fun delete(item: PersonToGroup?)
+    suspend fun delete(item: PersonToGroup)
 
     @Query(
         "SELECT p.*, cl.collectionId, (SELECT count(*) FROM COLLECTION_LOG_TABLE ORDER BY time) AS rank " +
@@ -57,6 +57,12 @@ interface PersonToGroupDao {
                 "ORDER BY p.name "
     )
     fun getPeopleByCollection(collectionId: Int, groupId: Int): LiveData<List<PersonExtended>>
+
+    @Query("SELECT PERSON_TABLE.* " +
+            "FROM person_to_group_table " +
+            "INNER JOIN PERSON_TABLE ON PERSON_TABLE.id = PERSON_TO_GROUP_TABLE.personId " +
+            "WHERE groupId = :groupId")
+    fun getPeopleFromGroup(groupId: Int) : LiveData<List<Person>>
 
     @Query("SELECT COUNT(*) FROM PERSON_TO_GROUP_TABLE WHERE groupId = :groupId")
     fun getGroupSize(groupId: Int): Int

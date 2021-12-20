@@ -1,5 +1,6 @@
 package com.simcom.ecashier.ui.people
 
+import android.app.Application
 import com.simcom.ecashier.ui.people.PeopleViewModel
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,22 +24,13 @@ import com.simcom.ecashier.ui.currentCollection.CurrentCollectionViewModel
 import com.simcom.ecashier.ui.addCollection.ErrorDialog
 import android.os.Build
 import android.graphics.drawable.ColorDrawable
-import com.simcom.ecashier.model.room.PersonExtended
 import androidx.room.PrimaryKey
 import androidx.room.Dao
 import androidx.room.Update
 import androidx.room.Delete
 import androidx.room.Embedded
 import androidx.room.Database
-import com.simcom.ecashier.model.room.PersonToGroup
-import com.simcom.ecashier.model.room.CollectionLog
 import androidx.room.RoomDatabase
-import com.simcom.ecashier.model.room.PersonDao
-import com.simcom.ecashier.model.room.GroupDao
-import com.simcom.ecashier.model.room.PersonToGroupDao
-import com.simcom.ecashier.model.room.CollectionDao
-import com.simcom.ecashier.model.room.CollectionLogDao
-import com.simcom.ecashier.model.room.CashierDatabase
 import kotlin.jvm.Synchronized
 import androidx.room.Room
 import androidx.appcompat.app.AppCompatActivity
@@ -46,5 +38,24 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.ui.NavigationUI
+import com.simcom.ecashier.model.room.*
 
-class PeopleViewModel : ViewModel()
+class PeopleViewModel(application:Application) : AndroidViewModel(application) {
+    private var db: CashierDatabase = Room.databaseBuilder(
+        application,
+        CashierDatabase::class.java, "cashier_database"
+    )
+        .fallbackToDestructiveMigration()
+        .build()
+
+    var selectedGroup: Group? = null
+
+    fun getGroups() : LiveData<List<Group>>{
+        return db.groupDao().allGroups()
+    }
+
+    fun getPeople() : LiveData<List<Person>>? {
+        return selectedGroup?.let { db.personToGroupDao().getPeopleFromGroup(it.id) }
+    }
+
+}
