@@ -37,5 +37,7 @@
     <string name="groups_empty_message">No groups yet, click + to create one</string>
     <string name="submit">Submit</string>
     <string name="people_empty_message">No people yet, click + to add person</string>
+    <string name="create_group">Create Group</string>
+    <string name="group_name">Group name:</string>
 
 </resources>
