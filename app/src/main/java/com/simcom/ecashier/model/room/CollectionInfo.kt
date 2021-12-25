@@ -51,8 +51,8 @@ class CollectionInfo(
     var price: Int,
     var peopleCount: Int,
     var paymentsCount: Int,
-    var collectionId: Int,
-    var groupId: Int,
+    var collectionId: Long,
+    var groupId: Long,
     var name: String
 ) {
     val totalPrice: Int

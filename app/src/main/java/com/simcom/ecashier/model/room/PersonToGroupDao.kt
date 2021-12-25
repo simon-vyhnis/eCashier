@@ -62,8 +62,8 @@ interface PersonToGroupDao {
             "FROM person_to_group_table " +
             "INNER JOIN PERSON_TABLE ON PERSON_TABLE.id = PERSON_TO_GROUP_TABLE.personId " +
             "WHERE groupId = :groupId")
-    fun getPeopleFromGroup(groupId: Int) : LiveData<List<Person>>
+    fun getPeopleFromGroup(groupId: Long) : LiveData<List<Person>>
 
     @Query("SELECT COUNT(*) FROM PERSON_TO_GROUP_TABLE WHERE groupId = :groupId")
-    fun getGroupSize(groupId: Int): Int
+    fun getGroupSize(groupId: Long): Int
 }

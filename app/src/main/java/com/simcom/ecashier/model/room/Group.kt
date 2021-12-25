@@ -43,6 +43,6 @@ import androidx.room.*
 @Entity(tableName = "group_table")
 class Group(val name: String) {
     @PrimaryKey(autoGenerate = true)
-    var id = 0
+    var id : Long = 0
 
 }

@@ -39,5 +39,7 @@
     <string name="people_empty_message">No people yet, click + to add person</string>
     <string name="create_group">Create Group</string>
     <string name="group_name">Group name:</string>
+    <string name="person_name">Name of the person:</string>
+    <string name="add_person">Add person</string>
 
 </resources>

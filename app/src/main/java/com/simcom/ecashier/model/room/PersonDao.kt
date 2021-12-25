@@ -43,7 +43,7 @@ import androidx.room.*
 @Dao
 interface PersonDao {
     @Insert
-    suspend fun insertPerson(person: Person)
+    suspend fun insertPerson(person: Person) : Long
 
     @Update
     suspend fun editPerson(person: Person)

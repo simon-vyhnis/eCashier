@@ -47,7 +47,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.ui.NavigationUI
 
-class PersonExtended(@field:Embedded val person: Person, val collectionId: Int, val rank: Int) {
+class PersonExtended(@field:Embedded val person: Person, val collectionId: Long, val rank: Int) {
     fun hasPaid(): Boolean {
         return rank != 0
     }

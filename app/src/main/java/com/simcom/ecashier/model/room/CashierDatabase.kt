@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [Person::class, Group::class, PersonToGroup::class, Collection::class, CollectionLog::class],
-    version = 4
+    version = 5
 )
 abstract class CashierDatabase : RoomDatabase() {
     abstract fun personDao(): PersonDao

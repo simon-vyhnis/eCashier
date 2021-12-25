@@ -43,7 +43,7 @@ import androidx.room.*
 @Entity(tableName = "collection_table")
 class Collection(
     val name: String,
-    val groupId: Int,
+    val groupId: Long,
     val price: Int,
     val time: Long,
     var isCurrent: Boolean

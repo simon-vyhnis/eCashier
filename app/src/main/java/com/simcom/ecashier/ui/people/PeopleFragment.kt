@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.simcom.ecashier.R
 
 class PeopleFragment : Fragment() {
@@ -23,6 +25,10 @@ class PeopleFragment : Fragment() {
             if(it.isEmpty()){
                 root.findViewById<TextView>(R.id.empty_message).visibility = View.VISIBLE
             }
+        }
+
+        root.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            findNavController().navigate(R.id.action_people_detail_to_addPersonFragment)
         }
         return root
     }

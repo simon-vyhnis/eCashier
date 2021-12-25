@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class AddCollectionViewModel(application: Application) : AndroidViewModel(application) {
     var name: String? = null
-    var groupId: Int? = null
+    var groupId: Long? = null
     var price: Int? = null
 
     private var db:CashierDatabase = Room.databaseBuilder(

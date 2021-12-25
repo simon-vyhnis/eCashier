@@ -30,7 +30,11 @@
         android:id="@+id/people_detail"
         android:name="com.simcom.ecashier.ui.people.PeopleFragment"
         android:label="@string/menu_people"
-        tools:layout="@layout/fragment_people"/>
+        tools:layout="@layout/fragment_people">
+        <action
+            android:id="@+id/action_people_detail_to_addPersonFragment"
+            app:destination="@id/addPersonFragment" />
+    </fragment>
 
 
     <fragment
@@ -68,5 +72,31 @@
         <action
             android:id="@+id/action_nav_people_to_people_detail"
             app:destination="@id/people_detail" />
+        <action
+            android:id="@+id/action_nav_people_to_addGroupFragment"
+            app:destination="@id/addGroupFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/addGroupFragment"
+        android:name="com.simcom.ecashier.ui.people.AddGroupFragment"
+        android:label="AddGroupFragment"
+        tools:layout="@layout/fragment_add_people">
+        <action
+            android:id="@+id/action_addGroupFragment_to_nav_people"
+            app:destination="@id/nav_people"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/addGroupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPersonFragment"
+        android:name="com.simcom.ecashier.ui.people.AddPersonFragment"
+        android:label="AddPersonFragment"
+        tools:layout="@layout/fragment_add_people">
+        <action
+            android:id="@+id/action_addPersonFragment_to_people_detail"
+            app:destination="@id/people_detail"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/addPersonFragment"
+            app:launchSingleTop="true"/>
     </fragment>
 </navigation>

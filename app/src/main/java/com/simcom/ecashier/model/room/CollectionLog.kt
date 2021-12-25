@@ -41,7 +41,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.room.*
 
 @Entity(tableName = "collection_LOG_table")
-class CollectionLog(val collectionId: Int, val personId: Int, val time: Long) {
+class CollectionLog(val collectionId: Long, val personId: Long, val time: Long) {
     @PrimaryKey(autoGenerate = true)
     var id = 0
 

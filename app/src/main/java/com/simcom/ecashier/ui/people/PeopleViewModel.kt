@@ -6,18 +6,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
 import com.simcom.ecashier.R
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
-import androidx.lifecycle.ViewModel
 import com.simcom.ecashier.ui.history.HistoryViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import androidx.lifecycle.AndroidViewModel
 import com.simcom.ecashier.ui.addCollection.AddCollectionViewModel
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.simcom.ecashier.ui.currentCollection.CurrentCollectionViewModel
@@ -36,9 +32,11 @@ import androidx.room.Room
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.*
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.ui.NavigationUI
 import com.simcom.ecashier.model.room.*
+import kotlinx.coroutines.launch
 
 class PeopleViewModel(application:Application) : AndroidViewModel(application) {
     private var db: CashierDatabase = Room.databaseBuilder(
@@ -56,6 +54,16 @@ class PeopleViewModel(application:Application) : AndroidViewModel(application) {
 
     fun getPeople() : LiveData<List<Person>>? {
         return selectedGroup?.let { db.personToGroupDao().getPeopleFromGroup(it.id) }
+    }
+
+    fun addGroup(name: String) = viewModelScope.launch {
+        db.groupDao().insert(Group(name))
+    }
+    fun addPerson(name: String) = viewModelScope.launch {
+        selectedGroup?.let {
+            val personId = db.personDao().insertPerson(Person(name))
+            db.personToGroupDao().insert(PersonToGroup(personId, it.id))
+        }
     }
 
 }
