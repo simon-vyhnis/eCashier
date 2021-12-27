@@ -1,12 +1,15 @@
 package com.simcom.ecashier.ui.people
 
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.ViewGroup
 import com.simcom.ecashier.R
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import android.view.View
+import android.widget.ImageButton
+import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.findNavController
 import com.simcom.ecashier.model.room.*
 
@@ -20,7 +23,29 @@ class ManageGroupsRecyclerViewAdapter(private val groups: List<Group>, private v
         holder.name.text = groups[position].name
         holder.card.setOnClickListener {
             viewModel.selectedGroup = groups[position]
-            holder.card.findNavController().navigate(R.id.action_nav_people_to_people_detail)
+            holder.card.findNavController().navigate(R.id.people_detail)
+        }
+
+        holder.itemView.findViewById<ImageButton>(R.id.button_menu).setOnClickListener{
+            val popup = PopupMenu(it.context, it)
+            popup.setOnMenuItemClickListener { item ->
+                return@setOnMenuItemClickListener when (item.itemId) {
+                    R.id.delete -> {
+                        viewModel.deleteGroup(groups[position])
+                        notifyItemRemoved(position)
+                        true
+                    }
+                    R.id.edit -> {
+                        viewModel.selectedGroup = groups[position]
+                        //TODO change to edit fragment it.findNavController().navigate(R.id.action_people_detail_to_addPersonFragment)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            val inflater: MenuInflater = popup.menuInflater
+            inflater.inflate(R.menu.item_actions, popup.menu)
+            popup.show()
         }
     }
 

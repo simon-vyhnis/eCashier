@@ -41,5 +41,7 @@
     <string name="group_name">Group name:</string>
     <string name="person_name">Name of the person:</string>
     <string name="add_person">Add person</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>

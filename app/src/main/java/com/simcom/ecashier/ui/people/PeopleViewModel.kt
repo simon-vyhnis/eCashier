@@ -47,6 +47,7 @@ class PeopleViewModel(application:Application) : AndroidViewModel(application) {
         .build()
 
     var selectedGroup: Group? = null
+    var selectedPerson: Person? = null
 
     fun getGroups() : LiveData<List<Group>>{
         return db.groupDao().allGroups()
@@ -64,6 +65,15 @@ class PeopleViewModel(application:Application) : AndroidViewModel(application) {
             val personId = db.personDao().insertPerson(Person(name))
             db.personToGroupDao().insert(PersonToGroup(personId, it.id))
         }
+    }
+
+    fun deletePerson(person: Person) = viewModelScope.launch{
+        selectedGroup?.let{db.personToGroupDao().deleteWithIds(person.id, it.id)}
+    }
+
+    fun deleteGroup(group: Group) = viewModelScope.launch{
+            db.groupDao().delete(group)
+            db.personToGroupDao().deleteWithGroupId(group.id)
     }
 
 }

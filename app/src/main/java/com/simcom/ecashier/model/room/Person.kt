@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "person_table")
 class Person(val name: String) {
     @PrimaryKey(autoGenerate = true)
-    var id = 0
+    var id : Long = 0
 
 }

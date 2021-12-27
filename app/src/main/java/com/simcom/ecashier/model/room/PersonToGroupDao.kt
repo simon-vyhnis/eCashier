@@ -48,6 +48,12 @@ interface PersonToGroupDao {
     @Delete
     suspend fun delete(item: PersonToGroup)
 
+    @Query("DELETE FROM person_to_group_table WHERE personId = :personId AND groupId = :groupId")
+    suspend fun deleteWithIds(personId: Long, groupId: Long)
+
+    @Query("DELETE FROM person_to_group_table WHERE groupId = :groupId")
+    suspend fun deleteWithGroupId(groupId: Long)
+
     @Query(
         "SELECT p.*, cl.collectionId, (SELECT count(*) FROM COLLECTION_LOG_TABLE ORDER BY time) AS rank " +
                 "FROM PERSON_TO_GROUP_TABLE AS ptg " +
