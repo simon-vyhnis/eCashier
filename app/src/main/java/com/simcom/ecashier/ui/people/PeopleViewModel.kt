@@ -76,4 +76,17 @@ class PeopleViewModel(application:Application) : AndroidViewModel(application) {
             db.personToGroupDao().deleteWithGroupId(group.id)
     }
 
+    fun editPerson(personName: String) =  viewModelScope.launch{
+        selectedPerson?.let {
+            it.name = personName
+            db.personDao().editPerson(it)
+        }
+    }
+    fun editGroup(groupName: String) =  viewModelScope.launch{
+        selectedGroup?.let {
+            it.name = groupName
+            db.groupDao().update(it)
+        }
+    }
+
 }

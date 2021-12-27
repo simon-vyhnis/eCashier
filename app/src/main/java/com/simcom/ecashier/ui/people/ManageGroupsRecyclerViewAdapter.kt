@@ -37,7 +37,7 @@ class ManageGroupsRecyclerViewAdapter(private val groups: List<Group>, private v
                     }
                     R.id.edit -> {
                         viewModel.selectedGroup = groups[position]
-                        //TODO change to edit fragment it.findNavController().navigate(R.id.action_people_detail_to_addPersonFragment)
+                        it.findNavController().navigate(R.id.action_nav_people_to_editGroupFragment)
                         true
                     }
                     else -> false

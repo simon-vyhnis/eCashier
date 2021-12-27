@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "person_table")
-class Person(val name: String) {
+class Person(var name: String) {
     @PrimaryKey(autoGenerate = true)
     var id : Long = 0
 

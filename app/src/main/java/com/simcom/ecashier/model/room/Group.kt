@@ -41,7 +41,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.room.*
 
 @Entity(tableName = "group_table")
-class Group(val name: String) {
+class Group(var name: String) {
     @PrimaryKey(autoGenerate = true)
     var id : Long = 0
 

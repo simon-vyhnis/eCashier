@@ -23,13 +23,13 @@ class EditGroupFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(PeopleViewModel::class.java)
         root.findViewById<TextView>(R.id.text).text = getString(R.string.group_name)
         val editText = root.findViewById<EditText>(R.id.input)
-        editText.hint = "Class 1.A"
+        editText.setText(viewModel.selectedGroup?.name)
         val button = root.findViewById<Button>(R.id.btn)
-        button.text = getString(R.string.create_group)
+        button.text = getString(R.string.rename_group)
         button.setOnClickListener {
             if(editText.text.isNotEmpty()){
-                viewModel.addGroup(editText.text.toString())
-                findNavController().navigate(R.id.action_addGroupFragment_to_nav_people)
+                viewModel.editGroup(editText.text.toString())
+                findNavController().navigate(R.id.action_editGroupFragment_to_nav_people)
             }else{
                 Toast.makeText(context, "Enter a name", Toast.LENGTH_SHORT).show()
             }

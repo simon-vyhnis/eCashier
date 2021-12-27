@@ -29,7 +29,7 @@ class ManagePeopleRecyclerViewAdapter(private val people: List<Person>, private 
                     }
                     R.id.edit -> {
                         viewModel.selectedPerson = people[position]
-                        //TODO change to edit fragment it.findNavController().navigate(R.id.action_people_detail_to_addPersonFragment)
+                        it.findNavController().navigate(R.id.action_people_detail_to_editPersonFragment)
                         true
                     }
                     else -> false

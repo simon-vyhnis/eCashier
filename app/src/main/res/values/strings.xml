@@ -43,5 +43,7 @@
     <string name="add_person">Add person</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="rename_group">Rename Group</string>
+    <string name="edit_person">Rename Person</string>
 
 </resources>

@@ -23,13 +23,13 @@ class EditPersonFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(PeopleViewModel::class.java)
         root.findViewById<TextView>(R.id.text).text = getString(R.string.person_name)
         val editText = root.findViewById<EditText>(R.id.input)
-        editText.hint = "Elen Musc"
+        editText.setText(viewModel.selectedPerson?.name)
         val button = root.findViewById<Button>(R.id.btn)
-        button.text = getString(R.string.add_person)
+        button.text = getString(R.string.edit_person)
         button.setOnClickListener {
             if(editText.text.isNotEmpty()){
-                viewModel.addPerson(editText.text.toString())
-                findNavController().navigate(R.id.action_addPersonFragment_to_people_detail)
+                viewModel.editPerson(editText.text.toString())
+                findNavController().navigate(R.id.action_editPersonFragment_to_people_detail)
             }else{
                 Toast.makeText(context, "Enter a name", Toast.LENGTH_SHORT).show()
             }
