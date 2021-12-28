@@ -65,7 +65,9 @@
             app:destination="@id/selectGroupFragment" />
         <action
             android:id="@+id/action_priceFragment_to_nav_current"
-            app:destination="@id/nav_current" />
+            app:destination="@id/nav_current"
+            app:popUpTo="@id/nav_add"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/nav_people"

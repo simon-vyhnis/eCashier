@@ -14,10 +14,10 @@ interface PersonToCollectionDao {
     @Query("SELECT hasPaid, PERSON_TABLE.* FROM PERSON_TO_COLLECTION_TABLE " +
             "INNER JOIN PERSON_TABLE ON PERSON_TABLE.id = PERSON_TO_COLLECTION_TABLE.personId " +
             "WHERE collectionId = :collectionId ")
-    fun getPeopleFromCollection(collectionId: Int) : LiveData<List<PersonExtended>>
+    fun getPeopleFromCollection(collectionId: Long) : LiveData<List<PersonExtended>>
 
     @Query("UPDATE PERSON_TO_COLLECTION_TABLE " +
             "SET hasPaid = :hasPaid, time = :time " +
             "WHERE personId = :personId AND collectionId = :collectionId")
-    fun setPersonPaid(hasPaid: Boolean, time: Long, personId: Long, collectionId: Long)
+    suspend fun setPersonPaid(hasPaid: Boolean, time: Long, personId: Long, collectionId: Long)
 }

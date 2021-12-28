@@ -4,8 +4,10 @@ import android.app.Application
 
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.simcom.ecashier.model.room.*
+import kotlinx.coroutines.launch
 
 class CurrentCollectionViewModel(application: Application) : AndroidViewModel(application) {
     private var db:CashierDatabase = Room.databaseBuilder(
@@ -15,6 +17,14 @@ class CurrentCollectionViewModel(application: Application) : AndroidViewModel(ap
 
     fun getCurrentCollectionInfo(): LiveData<CollectionInfo>{
         return db.collectionDao().getCurrentCollectionInfo()
+    }
+
+    fun getCollectionPeople(collectionId: Long): LiveData<List<PersonExtended>>{
+        return db.personToCollectionDao().getPeopleFromCollection(collectionId)
+    }
+
+    fun setPersonPaid(hasPaid: Boolean, personId: Long, collectionId: Long) = viewModelScope.launch{
+        db.personToCollectionDao().setPersonPaid(hasPaid, System.currentTimeMillis(), personId, collectionId)
     }
 
 }
