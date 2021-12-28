@@ -36,7 +36,7 @@
         android:layout_margin="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/groups"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"

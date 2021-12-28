@@ -11,12 +11,7 @@ import android.view.View
 import com.simcom.ecashier.model.room.*
 import java.util.ArrayList
 
-class SelectGroupRecyclerViewAdapter : RecyclerView.Adapter<SelectGroupRecyclerViewAdapter.ViewHolder>() {
-    private var groups: List<Group> = ArrayList()
-    fun setGroups(groups: List<Group>) {
-        this.groups = groups
-        notifyDataSetChanged()
-    }
+class SelectGroupRecyclerViewAdapter( private var groups: List<Group>, private val viewModel : AddCollectionViewModel) : RecyclerView.Adapter<SelectGroupRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group, parent, false)
@@ -24,11 +19,18 @@ class SelectGroupRecyclerViewAdapter : RecyclerView.Adapter<SelectGroupRecyclerV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = groups[position].name
-        holder.card.setOnClickListener {
+        val currentGroup = groups[position]
+        holder.name.text = currentGroup.name
+        if(currentGroup.id == viewModel.groupId){
             holder.card.setCardBackgroundColor(
                 Color.rgb(236, 244, 220)
             )
+        }else{
+            holder.card.setCardBackgroundColor(Color.WHITE)
+        }
+        holder.card.setOnClickListener {
+            viewModel.groupId = currentGroup.id
+            notifyDataSetChanged()
         }
     }
 
