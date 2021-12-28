@@ -13,7 +13,8 @@ interface PersonToCollectionDao {
 
     @Query("SELECT hasPaid, PERSON_TABLE.* FROM PERSON_TO_COLLECTION_TABLE " +
             "INNER JOIN PERSON_TABLE ON PERSON_TABLE.id = PERSON_TO_COLLECTION_TABLE.personId " +
-            "WHERE collectionId = :collectionId ")
+            "WHERE collectionId = :collectionId " +
+            "ORDER BY PERSON_TABLE.name")
     fun getPeopleFromCollection(collectionId: Long) : LiveData<List<PersonExtended>>
 
     @Query("UPDATE PERSON_TO_COLLECTION_TABLE " +

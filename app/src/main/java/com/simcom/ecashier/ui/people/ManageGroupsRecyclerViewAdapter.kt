@@ -15,7 +15,7 @@ import com.simcom.ecashier.model.room.*
 
 class ManageGroupsRecyclerViewAdapter(private val groups: List<Group>, private val viewModel: PeopleViewModel) : RecyclerView.Adapter<ManageGroupsRecyclerViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group_edit, parent, false)
         return ViewHolder(view)
     }
 
