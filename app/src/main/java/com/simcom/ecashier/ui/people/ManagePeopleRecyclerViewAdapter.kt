@@ -1,14 +1,17 @@
 package com.simcom.ecashier.ui.people
 
-import android.view.*
-import com.simcom.ecashier.R
-import androidx.recyclerview.widget.RecyclerView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.view.LayoutInflater
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
+import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
-import com.simcom.ecashier.model.room.*
+import androidx.recyclerview.widget.RecyclerView
+import com.simcom.ecashier.R
+import com.simcom.ecashier.model.room.Person
 
 class ManagePeopleRecyclerViewAdapter(private val people: List<Person>, private val viewModel: PeopleViewModel) : RecyclerView.Adapter<ManagePeopleRecyclerViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

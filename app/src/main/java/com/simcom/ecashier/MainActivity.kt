@@ -1,14 +1,14 @@
 package com.simcom.ecashier
 
 import android.os.Bundle
-import androidx.navigation.Navigation
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private var mAppBarConfiguration: AppBarConfiguration? = null
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         mAppBarConfiguration = AppBarConfiguration.Builder(
             R.id.nav_current, R.id.nav_add, R.id.nav_history, R.id.nav_people
         )
-            .setDrawerLayout(drawer)
+            .setOpenableLayout(drawer)
             .build()
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration!!)

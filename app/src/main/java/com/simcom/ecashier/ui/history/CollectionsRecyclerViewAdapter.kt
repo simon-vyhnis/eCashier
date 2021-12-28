@@ -1,20 +1,15 @@
 package com.simcom.ecashier.ui.history
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import com.simcom.ecashier.R
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.simcom.ecashier.R
 import com.simcom.ecashier.model.room.Collection
-import java.util.ArrayList
 
-class CollectionsRecyclerViewAdapter :
+class CollectionsRecyclerViewAdapter(private var collections: List<Collection>) :
     RecyclerView.Adapter<CollectionsRecyclerViewAdapter.ViewHolder>() {
-    private var collections: List<Collection> = ArrayList()
-    fun setCollections(collections: List<Collection>) {
-        this.collections = collections
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -22,7 +17,9 @@ class CollectionsRecyclerViewAdapter :
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {}
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.findViewById<TextView>(R.id.name).text = collections[position].name
+    }
     override fun getItemCount(): Int {
         return collections.size
     }

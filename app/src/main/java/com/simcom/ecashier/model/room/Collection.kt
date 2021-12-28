@@ -1,6 +1,7 @@
 package com.simcom.ecashier.model.room
 
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "collection_table")
 class Collection(

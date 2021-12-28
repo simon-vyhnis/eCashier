@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simcom.ecashier.R
 
@@ -14,6 +15,10 @@ class HistoryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val root: View = inflater.inflate(R.layout.fragment_history, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.recycler_view)
+        viewModel.getAllCollections().observe(viewLifecycleOwner){
+            recyclerView.adapter = CollectionsRecyclerViewAdapter(it)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+        }
         return root
     }
 }

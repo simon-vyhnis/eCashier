@@ -2,14 +2,13 @@ package com.simcom.ecashier.ui.addCollection
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import com.simcom.ecashier.R
-import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import android.view.View
-import com.simcom.ecashier.model.room.*
-import java.util.ArrayList
+import androidx.recyclerview.widget.RecyclerView
+import com.simcom.ecashier.R
+import com.simcom.ecashier.model.room.Group
 
 class SelectGroupRecyclerViewAdapter( private var groups: List<Group>, private val viewModel : AddCollectionViewModel) : RecyclerView.Adapter<SelectGroupRecyclerViewAdapter.ViewHolder>() {
 

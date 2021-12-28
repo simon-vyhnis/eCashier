@@ -1,19 +1,15 @@
 package com.simcom.ecashier.ui.addCollection
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
-import com.simcom.ecashier.R
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.simcom.ecashier.ui.history.HistoryViewModel
-import java.lang.NumberFormatException
+import com.simcom.ecashier.R
 
 class PriceFragment : Fragment() {
     private lateinit var viewModel : AddCollectionViewModel

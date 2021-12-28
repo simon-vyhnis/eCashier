@@ -1,8 +1,5 @@
 package com.simcom.ecashier.ui.currentCollection
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simcom.ecashier.R
 import com.simcom.ecashier.model.room.CollectionInfo
-import com.simcom.ecashier.ui.addCollection.ErrorDialog
 
 class CurrentCollectionFragment : Fragment() {
     private lateinit var viewModel : CurrentCollectionViewModel
@@ -32,10 +28,10 @@ class CurrentCollectionFragment : Fragment() {
         viewModel.getCurrentCollectionInfo()
             .observe(this.viewLifecycleOwner) { collectionInfo: CollectionInfo? ->
                 if (collectionInfo != null) {
-                    priceText.text = getString(R.string.current_price) + collectionInfo.price
-                    currentText.text = getString(R.string.current_current) + collectionInfo.currentlyCollected
-                    leftText.text = getString(R.string.current_left) + collectionInfo.moneyLeft
-                    totalText.text = getString(R.string.current_total) + collectionInfo.totalPrice
+                    priceText.text = getString(R.string.current_price, collectionInfo.price)
+                    currentText.text = getString(R.string.current_current, collectionInfo.currentlyCollected)
+                    leftText.text = getString(R.string.current_left, collectionInfo.moneyLeft)
+                    totalText.text = getString(R.string.current_total, collectionInfo.totalPrice)
                     Log.d("CurrentCollectionFr", "db has changed")
                     if(recyclerView.adapter == null) {
                         recyclerView.adapter = CollectionRecyclerViewAdapter(

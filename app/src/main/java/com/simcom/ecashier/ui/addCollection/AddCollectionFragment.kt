@@ -17,7 +17,7 @@ class AddCollectionFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(AddCollectionViewModel::class.java)
         val navController: NavController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         editText = root.findViewById(R.id.editText)
-        root.findViewById<View>(R.id.next_button).setOnClickListener { view: View? ->
+        root.findViewById<View>(R.id.next_button).setOnClickListener {
             if (editText.text.toString().isEmpty()) {
                 editText.error = "Can't be empty"
             } else {

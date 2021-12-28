@@ -1,12 +1,13 @@
 package com.simcom.ecashier.ui.currentCollection
 
 import android.app.Application
-
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
-import com.simcom.ecashier.model.room.*
+import com.simcom.ecashier.model.room.CashierDatabase
+import com.simcom.ecashier.model.room.CollectionInfo
+import com.simcom.ecashier.model.room.PersonExtended
 import kotlinx.coroutines.launch
 
 class CurrentCollectionViewModel(application: Application) : AndroidViewModel(application) {
